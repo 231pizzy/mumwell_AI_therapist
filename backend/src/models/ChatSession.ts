@@ -22,6 +22,17 @@ export interface IChatSession extends Document {
   status: "active" | "completed" | "archived";
   messages: IChatMessage[];
   expiresAt: Date; // <-- Add this
+  memory?: {
+    sessionContext?: {
+      conversationThemes?: string[];
+      currentTechnique?: string | null;
+    };
+    userProfile?: {
+      emotionalState?: string[];
+      preferences?: Record<string, any>;
+      riskLevel?: number;
+    };
+  };
 }
 
 const chatMessageSchema = new Schema<IChatMessage>({
@@ -56,6 +67,20 @@ const chatSessionSchema = new Schema<IChatSession>({
     default: () => new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
     index: { expires: 0 }, // TTL trigger field
   },
+
+  // ✅ Add memory field
+  memory: {
+    sessionContext: {
+      conversationThemes: { type: [String], default: [] },
+      currentTechnique: { type: String, default: null },
+    },
+    userProfile: {
+      emotionalState: { type: [String], default: [] },
+      preferences: { type: Schema.Types.Mixed, default: {} },
+      riskLevel: { type: Number, default: 0 },
+    },
+  },
 });
+
 
 export const ChatSession = model<IChatSession>("ChatSession", chatSessionSchema);
