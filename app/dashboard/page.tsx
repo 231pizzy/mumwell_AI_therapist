@@ -449,6 +449,7 @@ export default function Dashboard() {
     if (showMoodModal === false) {
       fetchData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMoodModal]);
 
 
@@ -498,6 +499,10 @@ export default function Dashboard() {
   // Add these action handlers
   const handleStartTherapy = () => {
     router.push("/therapy/new");
+  };
+
+  const handleStartVoiceTherapy = () => {
+    router.push("/consultation");
   };
 
   const handleStartTest = () => {
@@ -589,6 +594,32 @@ export default function Dashboard() {
                   </div>
 
                   <div className="grid gap-3">
+                    <Button
+                      variant="default"
+                      className={cn(
+                        "w-full justify-between items-center p-6 h-auto group/button cursor-pointer",
+                        "bg-gradient-to-r from-[#2c413a] to-[#0f4f4d] hover:from-[#26565c] hover:to-[#246d85]",
+                        "transition-all duration-200 group-hover:translate-y-[-2px]"
+                      )}
+                      onClick={handleStartVoiceTherapy}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                          <MessageSquare className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-semibold text-white">
+                            Start Voice Consultation
+                          </div>
+                          <div className="text-xs text-white/80">
+                            Talk to an AI Specialist
+                          </div>
+                        </div>
+                      </div>
+                      <div className="opacity-0 group-hover/button:opacity-100 transition-opacity">
+                        <ArrowRight className="w-5 h-5 text-white" />
+                      </div>
+                    </Button>
                     <Button
                       variant="default"
                       className={cn(

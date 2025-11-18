@@ -39,16 +39,17 @@ app.use(
 app.use(morgan("dev")); // HTTP request logger
 app.use(express.json()); // Parse JSON bodies
 
-// Set up Inngest endpoint
-// app.use(
-//   "/api/inngest",
-//   serve({ client: inngest, functions: inngestFunctions,  })
-// );
-
+// development Set up Inngest endpoint
 app.use(
   "/api/inngest",
-  serve({ client: inngest, functions: inngestFunctions, signingKey: process.env.INNGEST_SIGNING_KEY, })
+  serve({ client: inngest, functions: inngestFunctions,  })
 );
+
+// production Set up Inngest endpoint
+// app.use(
+//   "/api/inngest",
+//   serve({ client: inngest, functions: inngestFunctions, signingKey: process.env.INNGEST_SIGNING_KEY, })
+// );
 
 app.use("/auth", authRouter);
 app.use("/chat", chatRouter);

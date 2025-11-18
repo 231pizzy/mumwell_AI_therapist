@@ -206,3 +206,8 @@ body {
     background-size: 25%;
   }
 }
+
+.html2pdf-safe * {
+  color: black !important;
+  background-color: white !important;
+}

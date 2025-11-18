@@ -20,6 +20,7 @@ export default function Header() {
   const authNavItems = [
     { href: "/dashboard", label: "Dashboard" },
     { href: "/test", label: "Take Test" },
+    { href: "/consultation", label: "Voice Consultation" },
     { href: "/contact", label: "Emergency Contact" },
   ];
 
@@ -129,9 +130,9 @@ export default function Header() {
                   <Button
                     variant="outline"
                     onClick={logout}
-                    className="hidden md:flex bg-red-500 hover:bg-red-700 text-muted-foreground hover:text-white cursor-pointer transition-colors"
+                    className="hidden md:flex bg-gradient-to-r from-[#592830] to-[#5e1d28] hover:from-[#922c3d] hover:to-[#a1263b] text-white hover:text-white cursor-pointer transition-colors"
                   >
-                    <LogOut className="w-4 h-4 mr-2" />
+                    <LogOut className="w-4 h-4 mr-2 text-white" />
                     Sign out
                   </Button>
                 </>
@@ -180,11 +181,11 @@ export default function Header() {
         <Button
           asChild
           onClick={logout}
-          className="mt-3 w-full gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+          className="mt-3 w-full gap-2 bg-gradient-to-r from-[#592830] to-[#5e1d28] hover:from-[#922c3d] hover:to-[#a1263b] text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
         >
           <div className="flex items-center justify-center gap-2">
             <LogOut className="w-4 h-4" />
-            <span>Sign out</span>
+            <span className="text-foreground">Sign out</span>
           </div>
         </Button>
       )}

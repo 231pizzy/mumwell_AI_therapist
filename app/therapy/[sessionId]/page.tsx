@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Send,
@@ -40,12 +40,12 @@ import { formatDistanceToNow } from "date-fns";
 // }
 
 
-const SUGGESTED_QUESTIONS = [
-  { text: "How can I manage my anxiety better?" },
-  { text: "I've been feeling overwhelmed lately" },
-  { text: "Can we talk about improving sleep?" },
-  { text: "I need help with work-life balance" },
-];
+// const SUGGESTED_QUESTIONS = [
+//   { text: "How can I manage my anxiety better?" },
+//   { text: "I've been feeling overwhelmed lately" },
+//   { text: "Can we talk about improving sleep?" },
+//   { text: "I need help with work-life balance" },
+// ];
 
 const glowAnimation = {
   initial: { opacity: 0.5, scale: 1 },
@@ -66,11 +66,12 @@ export default function TherapyPage() {
 
 
   const params = useParams();
-  const router = useRouter();
+  // const router = useRouter();
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  console.log('messages', messages)
   const [mounted, setMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const isChatPaused = false;
@@ -351,19 +352,20 @@ export default function TherapyPage() {
   //   return null;
   // };
 
-  const handleSuggestedQuestion = async (text: string) => {
-    if (!sessionId) {
-      const newSessionId = await createChatSession();
-      setSessionId(newSessionId);
-      router.push(`/therapy/${newSessionId}`);
-    }
+  // const handleSuggestedQuestion = async (text: string) => {
+  //   if (!sessionId) {
+  //     const newSessionId = await createChatSession();
+  //     setSessionId(newSessionId);
+  //     router.push(`/therapy/${newSessionId}`);
+  //   }
 
-    setMessage(text);
-    setTimeout(() => {
-      const event = new Event("submit") as unknown as React.FormEvent;
-      handleSubmit(event);
-    }, 0);
-  };
+  //  setMessage(text);
+  // setTimeout(() => {
+  //   handleSubmit({
+  //     preventDefault: () => {},
+  //   } as unknown as React.FormEvent<HTMLFormElement>);
+  // }, 0);
+  // };
 
   // const handleCompleteSession = async () => {
   //   if (isCompletingSession) return;
@@ -575,30 +577,7 @@ export default function TherapyPage() {
                   </div>
                 </div>
 
-                <div className="grid gap-3 relative">
-                  <motion.div
-                    className="absolute -inset-4 bg-gradient-to-b from-primary/5 to-transparent blur-xl"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                  />
-                  {SUGGESTED_QUESTIONS.map((q, index) => (
-                    <motion.div
-                      key={q.text}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 + 0.5 }}
-                    >
-                      <Button
-                        variant="outline"
-                        className="w-full h-auto py-4 px-6 text-left justify-start hover:bg-muted/50 hover:border-primary/50 transition-all duration-300"
-                        onClick={() => handleSuggestedQuestion(q.text)}
-                      >
-                        {q.text}
-                      </Button>
-                    </motion.div>
-                  ))}
-                </div>
+             
               </div>
             </div>
           ) : (
@@ -606,9 +585,9 @@ export default function TherapyPage() {
             <div className="flex-1 overflow-y-auto scroll-smooth">
               <div className="max-w-3xl mx-auto">
                 <AnimatePresence initial={false}>
-                  {messages.map((msg) => (
+                  {messages.map((msg, index) => (
                     <motion.div
-                      key={msg.timestamp.toISOString()}
+                       key={`${msg.timestamp.toISOString()}-${msg.role}-${index}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}

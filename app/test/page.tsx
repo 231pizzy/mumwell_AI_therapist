@@ -234,7 +234,7 @@ export default function PostpartumTest() {
 
   const handleChat = () => {
     // Link to your chat feature route
-    window.location.href = "/chat";
+    window.location.href = "/therapy/new";
   };
 
   return (
